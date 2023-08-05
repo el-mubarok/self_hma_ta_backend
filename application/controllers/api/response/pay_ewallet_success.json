@@ -1,0 +1,42 @@
+{
+  "created": "2023-07-19T22:36:31.989Z",
+  "business_id": "626641f0710abd34d82a92d8",
+  "event": "ewallet.capture",
+  "data": {
+    "id": "ewc_bdeed0e1-575a-4700-917b-d2bd06855cb3",
+    "basket": null,
+    "status": "SUCCEEDED",
+    "actions": {
+      "qr_checkout_string": null,
+      "mobile_web_checkout_url": "https://ewallet-mock-connector.xendit.co/v1/ewallet_connector/checkouts?token=cis69f4abidq0em89h30",
+      "desktop_web_checkout_url": "https://ewallet-mock-connector.xendit.co/v1/ewallet_connector/checkouts?token=cis69f4abidq0em89h30",
+      "mobile_deeplink_checkout_url": null
+    },
+    "created": "2023-07-19T22:33:32.47698Z",
+    "updated": "2023-07-19T22:36:31.785668Z",
+    "currency": "IDR",
+    "customer": null,
+    "metadata": null,
+    "voided_at": null,
+    "capture_now": true,
+    "customer_id": null,
+    "void_status": null,
+    "callback_url": "https://eac9-182-1-116-0.ap.ngrok.io/reefo-dev/hook/xendit/ewallet/status",
+    "channel_code": "ID_DANA",
+    "failure_code": null,
+    "reference_id": "7bbfc941-b6e1-490b-9579-eb8edd23767e",
+    "charge_amount": 35525,
+    "capture_amount": 35525,
+    "checkout_method": "ONE_TIME_PAYMENT",
+    "refunded_amount": null,
+    "payment_method_id": null,
+    "channel_properties": {
+      "success_redirect_url": "https://el-mubarok.github.io/self-success-page/?bg=#DF3526&color=#fff"
+    },
+    "is_redirect_required": true,
+    "payer_charged_amount": null,
+    "shipping_information": null,
+    "payer_charged_currency": null
+  },
+  "api_version": null
+}

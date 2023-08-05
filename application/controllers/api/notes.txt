@@ -1,0 +1,30 @@
+BRI
+13281 9999000001 - 13281 9999999999
+
+Mandiri
+88608 9999000001 - 88608 9999999999
+
+BNI
+8808 999900000001 - 8808 999999999999
+
+Permata
+8214 9999000001 - 8214 9999999999
+
+BCA
+10766 9999000001 - 10766 9999999999
+
+BSI
+9347 99990000001 - 9347 99999999999
+
+API key:
+dev_hma
+xnd_development_Vg2HohPA6yEr8RZtRtgxlCVpbKydjPuUheFJFTExLYhIJCQLZXHfjCY9tawM6rA
+
+selfcallback
+Callback123@
+https://selfcallback.000webhostapp.com/
+
+https://stackoverflow.com/questions/69875612/flutter-open-deep-link-using-package
+<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+
+https://www.dana.id/enterprise/en/product/guest-checkout

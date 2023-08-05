@@ -1,0 +1,16 @@
+{
+  "owner_id": "626641f0710abd34d82a92d8",
+  "external_id": "59d566a1-efc3-470a-8757-48db22f81c96",
+  "account_number": "8808999900000007",
+  "bank_code": "BNI",
+  "merchant_code": "8808",
+  "name": "XDT-dwi arif almubarok",
+  "is_closed": true,
+  "expected_amount": 39000,
+  "expiration_date": "2023-07-20T04:06:18.000Z",
+  "is_single_use": false,
+  "status": "PENDING",
+  "currency": "IDR",
+  "country": "ID",
+  "id": "64b7451bac2392719cadcb60"
+}

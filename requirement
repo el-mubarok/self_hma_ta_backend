@@ -1,0 +1,19 @@
+Admin :
+- login
+- kelola data warga
+- report pembayaran (untuk melihat status pembayaran warga)
+- konfigurasi notifikasi (untuk mengatur tanggal pengingat warga melakukan pembayaran iuran)
+- logout
+
+Warga : 
+- login
+- history pembayaran
+- pembayaran
+- logout
+
+System :
+- auto notification (pengingat otomatis berdasarkan konfigurasi pada admin)
+- payment gateway
+- register warga dari menu kelola warga pada admin
+
+db: https://dbdiagram.io/d/64a666c702bd1c4a5e9778ba

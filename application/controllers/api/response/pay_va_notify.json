@@ -1,0 +1,35 @@
+{
+  "id": "64b7451bac2392719cadcb60",
+  "name": "XDT-dwi arif almubarok",
+  "status": "INACTIVE",
+  "country": "ID",
+  "created": "2023-07-19T02:06:19.062Z",
+  "updated": "2023-07-20T04:06:44.996Z",
+  "currency": "IDR",
+  "owner_id": "626641f0710abd34d82a92d8",
+  "bank_code": "BNI",
+  "is_closed": true,
+  "external_id": "59d566a1-efc3-470a-8757-48db22f81c96",
+  "is_single_use": false,
+  "merchant_code": "8808",
+  "account_number": "8808999900000007",
+  "expected_amount": 39000,
+  "expiration_date": "2023-07-20T04:06:18.000Z"
+}
+
+{
+  "id": "17016f7b-596d-4c7e-8683-4ced2ff3d398_1689839082921",
+  "amount": 39000,
+  "country": "ID",
+  "created": "2023-07-20T07:44:43.166Z",
+  "updated": "2023-07-20T07:44:45.434Z",
+  "currency": "IDR",
+  "owner_id": "626641f0710abd34d82a92d8",
+  "bank_code": "BNI",
+  "payment_id": "17016f7b-596d-4c7e-8683-4ced2ff3d398_1689839082921",
+  "external_id": "17016f7b-596d-4c7e-8683-4ced2ff3d398",
+  "merchant_code": "8808",
+  "account_number": "999900000007",
+  "transaction_timestamp": "2023-07-20T07:44:42.921Z",
+  "callback_virtual_account_id": "64b7451bac2392719cadcb60"
+}

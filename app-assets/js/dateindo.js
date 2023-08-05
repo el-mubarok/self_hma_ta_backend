@@ -1,0 +1,1 @@
+function dateindo(e){var a=["minggu","senin","selasa","rabu","kamis","jum&#39;at","sabtu"],t=["januari","februari","maret","april","mei","juni","juli","agustus","september","oktober","november","desember"],n=new Date(e).getDate(),r=new Date(e).getDay(),u=new Date(e).getMonth(),i=new Date(e).getYear();a=a[r];return n+" "+(t=t[u])+" "+(i<1e3?i+1900:i)}

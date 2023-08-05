@@ -1,0 +1,17 @@
+{
+	"description" : "The CodeIgniter Application with Composer",
+	"require": {
+		"php": ">=5.3.2",
+		"codeigniter/framework": "3.1.13",
+		"xendit/xendit-php": "2.19",
+		"ramsey/uuid": "4.2.3"
+	},
+	"require-dev": {
+		"mikey179/vfsstream": "1.1.*"
+	},
+	"config": {
+    "platform": {
+        "php": "7.2.34"
+     }
+	}
+}
