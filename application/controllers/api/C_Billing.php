@@ -149,6 +149,12 @@ class C_Billing extends CI_Controller
       true
     );
 
+    // check current user unpaid bill session
+    $missedBilling = $this->checkUserMissedBilling($userId);
+
+    // HelperUtilsReturnJSON($this, 200, $missedBilling);
+    // return;
+
     if ($billingSession) {
       $sessionId = $billingSession->id;
       // check is current user already pay
@@ -157,15 +163,55 @@ class C_Billing extends CI_Controller
         "billing_session_id = $sessionId AND user_id = $userId AND (status_va = 'SUCCESS' OR status_ewallet = 'SUCCEEDED')",
         true
       );
+      $billingSession->basePrice = $billingSession->price;
 
       if ($paymentDetails) {
         $billingSession->is_paid = true;
       } else {
         $billingSession->is_paid = false;
       }
+
+      if(count($missedBilling) > 0) {
+        $billingSession->missed = $missedBilling;
+
+        // update session price
+        $updatedPrice = intval($billingSession->price);
+        foreach($missedBilling as $missed) {
+          $updatedPrice += intval($missed->price);
+        }
+        $billingSession->price = $updatedPrice;
+      }
     }
 
     HelperUtilsReturnJSON($this, 200, $billingSession);
+  }
+
+  private function checkUserMissedBilling($userId) {
+    $currentDate = date('Y-m-d');
+    // get session before current date
+    $otherSession = $this->modelCommon->get(
+      TBL_BILLING_SESSION,
+      "DATE(from_date) < '$currentDate'",
+      false
+    );
+    $result = [];
+
+    // get payment details based on $otherSession data
+    foreach($otherSession as $session) {
+      $paymentDetails = $this->modelCommon->get(
+        TBL_PAYMENT_DETAILS,
+        ['billing_session_id' => $session->id, 'user_id' => $userId],
+        false
+      );
+      $temp = $session;
+      $temp->is_paid = count($paymentDetails) > 0;
+
+      if(!$temp->is_paid) {
+        array_push($result, $temp);
+      }
+    }
+
+    return $result;
   }
 
   public function getActiveSession()

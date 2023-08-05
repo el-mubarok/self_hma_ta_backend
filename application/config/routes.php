@@ -87,6 +87,7 @@ $route['api/billing/session/time']['GET'] = 'api/C_Billing/getSessionTime';
 $route['api/billing/session/time/create']['POST'] = 'api/C_Billing/postSessionTime';
 $route['api/billing/session/time/edit']['PATCH'] = 'api/C_Billing/patchSessionTime';
 $route['api/billing/session/time/delete/(:num)']['DELETE'] = 'api/C_Billing/deleteSessionTime/$1';
+// 
 
 // report
 $route['api/report']['GET'] = 'api/C_Report/getAll';
