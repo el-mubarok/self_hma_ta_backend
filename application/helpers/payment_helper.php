@@ -25,7 +25,8 @@ function paymentCreateVa($code, $data)
 			"is_single_use" => false,
 			"expected_amount" => $nominal,
 			"is_closed" => true,
-			"expiration_date" => (new DateTime(date('Y-m-d H:i:s')))->modify('+1 day')->format('Y-m-d H:i:s'),
+			// "expiration_date" => (new DateTime(date('Y-m-d H:i:s')))->modify('+1 day')->format('Y-m-d H:i:s'),
+			"expiration_date" => (new DateTime(date('Y-m-d H:i:s')))->modify('+5 minutes')->format('Y-m-d H:i:s'),
 		];
 
 		return \Xendit\VirtualAccounts::create($params);
@@ -78,8 +79,8 @@ function paymentGetVa($id)
 	Xendit::setApiKey(XDEV_SECRET);
 
 	try {
-		// return \Xendit\VirtualAccounts::retrieve($id);
-		return \Xendit\VirtualAccounts::getFVAPayment($id);
+		return \Xendit\VirtualAccounts::retrieve($id);
+		// return \Xendit\VirtualAccounts::getFVAPayment($id);
 	} catch (Exception $e) {
 		return null;
 	} catch (\Xendit\Exceptions\ApiException $e) {
@@ -133,9 +134,9 @@ function paymentCalulate($method, $amount, $baseAmount)
 	}
 
 	return (object) [
-		"amount" => $calcAmount,
+		"amount" => round($calcAmount),
 		"base_amount" => $baseAmount * 1,
-		"ppn" => $ppn * 1,
+		"ppn" => round($ppn * 1),
 		"is_equal" => $calcAmount == $amount,
 	];
 }
