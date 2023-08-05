@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 define('TITLE_PAYMENT_SUCCESS', 'Pembayaran anda berhasil');
 define('TITLE_PAYMENT_WAITING', 'Menunggu pembayaran');
@@ -19,6 +19,12 @@ class C_Callback extends CI_Controller
     $this->load->model('api/M_Common', 'modelCommon');
   }
 
+  public function index()
+  {
+    echo ":p";
+  }
+
+  /* #region postCallback, used by xendit */
   public function postCallback()
   {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -46,15 +52,15 @@ class C_Callback extends CI_Controller
       $paymentMethod = $this->modelCommon->get(TBL_PAYMENT_METHOD, [
         'code' => $data['bank_code']
       ]);
-      
-      if(isset($data['status'])) {
+
+      if (isset($data['status'])) {
         $_status =  $data['status'];
-      }else if(isset($data['transaction_timestamp'])){
+      } else if (isset($data['transaction_timestamp'])) {
         $_status =  'SUCCESS';
-      }else{
+      } else {
         $_status =  'ERROR';
       }
-      
+
       $result = [
         'id' => $data['id'],
         'status' => $_status,
@@ -62,10 +68,9 @@ class C_Callback extends CI_Controller
         'account_number' => $data['account_number'],
       ];
 
-      if(isset($data['expiration_date'])) {
+      if (isset($data['expiration_date'])) {
         // 'expiration_date' => $data['expiration_date']
         $result['expiration_date'] = $data['expiration_date'];
-
       }
     }
 
@@ -99,7 +104,7 @@ class C_Callback extends CI_Controller
     ];
 
     // update payment details
-    if($type != null) {
+    if ($type != null) {
       $detailsData = prepareDetailsData(
         $paymentMethod,
         $referenceId,
@@ -109,14 +114,14 @@ class C_Callback extends CI_Controller
       );
 
       // filter updated data
-      if($type == 'ewallet') {
+      if ($type == 'ewallet') {
         $detailsData = [
           "status_ewallet" => $detailsData['status_ewallet']
         ];
         $methodEwallet = $this->modelCommon->get(TBL_PAYMENT_STATUS_EWALLET, [
           'code' => $detailsData['status_ewallet']
         ]);
-      } else if($type == 'va') {
+      } else if ($type == 'va') {
         echo json_encode($detailsData);
         $detailsData = [
           "status_va" => $detailsData['status_va'],
@@ -127,7 +132,7 @@ class C_Callback extends CI_Controller
         ]);
       }
 
-      if($type != null) {
+      if ($type != null) {
         $this->modelCommon->update(TBL_PAYMENT_DETAILS, [
           'uuid' => $referenceId
         ], $detailsData);
@@ -136,21 +141,21 @@ class C_Callback extends CI_Controller
         $user = $this->modelCommon->get(TBL_USER, [
           'id' => $paymentDetails->user_id
         ]);
-        
-        if($type == 'va') {
-          if(isset($data['transaction_timestamp'])) {
+
+        if ($type == 'va') {
+          if (isset($data['transaction_timestamp'])) {
             notificationSend(
-              $user, 
-              TITLE_PAYMENT_WAITING, 
+              $user,
+              TITLE_PAYMENT_WAITING,
               messageBill($this, $type, 'SUCCESS', $sessionDetails->name)
             );
-          } else if(isset($data['status'])) {
+          } else if (isset($data['status'])) {
             $stat = $data['status'];
             $title = "";
             $msg = "";
             $xp = date('D d M Y h:i a', strtotime($paymentDetails->expiry_date));
-            
-            switch($stat) {
+
+            switch ($stat) {
               case 'PENDING':
                 $title = "Pembayaran diproses";
                 $msg = "Pembayaran $sessionDetails->name sedang diproses oleh bank terkait";
@@ -170,17 +175,17 @@ class C_Callback extends CI_Controller
             }
 
             notificationSend(
-              $user, 
-              $title, 
+              $user,
+              $title,
               messageBill($this, $type, $data['status'], $msg)
             );
           }
-        } else if($type == 'ewallet') {
+        } else if ($type == 'ewallet') {
           $stat = $data['status'];
           $title = "";
           $msg = "";
-          
-          switch($stat) {
+
+          switch ($stat) {
             case 'PENDING':
               $title = "Menunggu pembayaran";
               $msg = "Menunggu pembayaran $sessionDetails->name.";
@@ -203,8 +208,8 @@ class C_Callback extends CI_Controller
               break;
           }
           notificationSend(
-            $user, 
-            $title, 
+            $user,
+            $title,
             messageBill($this, $type, $data['status'], $msg)
           );
         }
@@ -228,4 +233,5 @@ class C_Callback extends CI_Controller
       'message' => 'success'
     ]);
   }
+  /* #endregion */
 }
