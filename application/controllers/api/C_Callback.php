@@ -146,7 +146,7 @@ class C_Callback extends CI_Controller
           if (isset($data['transaction_timestamp'])) {
             notificationSend(
               $user,
-              TITLE_PAYMENT_WAITING,
+              TITLE_PAYMENT_SUCCESS,
               messageBill($this, $type, 'SUCCESS', $sessionDetails->name)
             );
           } else if (isset($data['status'])) {
