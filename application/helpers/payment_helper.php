@@ -110,6 +110,32 @@ function paymentCreateUUID()
 	return $uuid->toString();
 }
 
+function paymentSimulateVa($externalId, $amount)
+{
+	$curl = curl_init();
+
+	curl_setopt_array($curl, array(
+		CURLOPT_URL => "https://api.xendit.co/callback_virtual_accounts/external_id=$externalId/simulate_payment",
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS => "{\"amount\": $amount}",
+		CURLOPT_HTTPHEADER => array(
+			'Content-Type: application/json',
+			'Authorization: Basic eG5kX2RldmVsb3BtZW50X1ZnMkhvaFBBNnlFcjhSWnRSdGd4bENWcGJLeWRqUHVVaGVGSkZURXhMWWhJSkNRTFpYSGZqQ1k5dGF3TTZyQTo='
+		),
+	));
+
+	$response = curl_exec($curl);
+
+	curl_close($curl);
+	echo $response;
+}
+
 /**
  * check is payment calculation
  */

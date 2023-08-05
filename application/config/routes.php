@@ -72,6 +72,7 @@ $route['api/payment/request']['POST'] = 'api/C_Payment/postRequestPayment';
 $route['api/payment/status/:any']['GET'] = 'api/C_Payment/getStatus';
 $route['api/payment/details/(:any)']['GET'] = 'api/C_Payment/paymentDetailsPaymentId/$1';
 $route['api/payment/history/(:any)']['GET'] = 'api/C_Payment/getHistory/$1';
+$route['api/payment/simulate/va']['GET'] = 'api/C_Payment/simulatePaymentVa';
 
 // billing session
 $route['api/billing/session']['GET'] = 'api/C_Billing/index';

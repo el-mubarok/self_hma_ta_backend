@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * @property M_Payment_Method $modelPaymentMethod
  * @property M_Common $modelCommon
+ * @property CI_Input $input
  */
 class C_Payment extends CI_Controller
 {
@@ -133,5 +134,33 @@ class C_Payment extends CI_Controller
 		}
 
 		HelperUtilsReturnJSON($this, 200, $paymentDetails);
+	}
+
+	public function simulatePaymentVa() {
+		$email = $this->input->get('email');
+		$user = $this->modelCommon->get(
+			TBL_USER, 
+			['email' => $email]
+		);
+		
+		if($user) {
+			$userId = $user->id;
+
+			$paymentDetails = $this->modelCommon->get(
+				TBL_PAYMENT_DETAILS,
+				"user_id = $userId AND (status_va = 'ACTIVE' OR status_va = 'PENDING' OR status_ewallet = 'PENDING')",
+				true,
+				'id DESC'
+			);
+
+			if($paymentDetails) {
+				$externalId = $paymentDetails->uuid;
+				paymentSimulateVa($externalId, $paymentDetails->grand_total);
+
+				return;
+			}
+		}
+
+		echo 'failed';
 	}
 }
