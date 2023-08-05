@@ -282,7 +282,8 @@ class C_Billing extends CI_Controller
     $paymentDetails = $this->modelCommon->get(
       TBL_PAYMENT_DETAILS,
       "user_id = $userId AND (status_va = 'ACTIVE' OR status_va = 'PENDING' OR status_ewallet = 'PENDING')",
-      true
+      true,
+      'id DESC'
     );
 
     if ($paymentDetails) {
@@ -303,7 +304,8 @@ class C_Billing extends CI_Controller
           $paymentDetails = $this->modelCommon->get(
             TBL_PAYMENT_DETAILS,
             "user_id = $userId AND (status_va = 'ACTIVE' OR status_va = 'PENDING' OR status_ewallet = 'PENDING')",
-            true
+            true,
+            'id DESC'
           );
           $paymentDetails->payment_actions = $paymentInfo['actions'];
         }
@@ -316,7 +318,7 @@ class C_Billing extends CI_Controller
 
         if (isset($paymentInfo['transaction_timestamp'])) {
           // transaction done/finished
-          if ($paymentStatus != $paymentDetails->status_ewallet) {
+          if ($paymentStatus != $paymentDetails->status_va) {
             // update db
             $this->modelCommon->update(
               TBL_PAYMENT_DETAILS,
@@ -326,7 +328,7 @@ class C_Billing extends CI_Controller
           }
         } else if (isset($paymentInfo['status'])) {
           // status exists
-          if ($paymentStatus != $paymentDetails->status_ewallet) {
+          if ($paymentStatus != $paymentDetails->status_va) {
             // update db
             $this->modelCommon->update(
               TBL_PAYMENT_DETAILS,
@@ -339,7 +341,8 @@ class C_Billing extends CI_Controller
         $paymentDetails = $this->modelCommon->get(
           TBL_PAYMENT_DETAILS,
           "user_id = $userId AND (status_va = 'ACTIVE' OR status_va = 'PENDING' OR status_ewallet = 'PENDING')",
-          true
+          true,
+          'id DESC'
         );
       }
 
